@@ -1,8 +1,14 @@
 # ACM - SCL
 
-*This is the Standard Code Library for Competitive Programming.*
+*This is the Standard Code Library (SCL) for Competitive Programming.*
 
 I have implemented many commonly seen/used algorithms and data structures in competitive programming.
+
+You can find the implementations in `code`.
+
+I also wrote a tool to compare the output files, the source code of which can be found in `_cmp`.
+
+Word/PDF documents containing well-organized source code and some useful theorems and formulas can be found in `_SCL`. Most of the theorems and formulas are from *Wikipedia* and *Concrete Mathematics*.
 
 ### Notes:
 - My C++ compiler is [MinGW-W64](https://sourceforge.net/projects/mingw-w64/) 8.1.0. Compile the code with `c++0y` (a.k.a. C++ 14) compiling option.
