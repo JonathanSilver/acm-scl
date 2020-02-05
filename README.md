@@ -150,3 +150,4 @@ Word/PDF documents containing well-organized source code and some useful theorem
         - On Tree (2D) `MO_on_tree::MO_2_on_tree`
     - CDQ `extra.h:CDQ::cdq`
     - Divide & Conquer with FFT `extra.h:divide_and_conquer_fft::solve`
+    - Fast Input `extra.h:fast_input`

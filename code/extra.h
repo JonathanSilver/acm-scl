@@ -2,6 +2,7 @@
 #define _EXTRA_H
 
 #include <iostream>
+#include <cstdio>
 #include <cstring>
 #include <climits>
 #include <cmath>
@@ -266,5 +267,46 @@ void solve(int l, int r) {
 }
 
 } // divide_and_conquer_fft
+
+namespace fast_input {
+
+const int MAX_BUF_SIZE = 1 << 23;
+char buf[MAX_BUF_SIZE];
+int len, pos;
+char next_char() {
+    if (pos == len) {
+        len = fread(buf, sizeof(char), MAX_BUF_SIZE, stdin);
+        if (len == 0) return EOF;
+        pos = 0;
+    }
+    return buf[pos++];
+}
+template <class T>
+bool read_int(T & x) {
+    char c;
+    while (!isdigit(c = next_char()) && c != '-' && c != EOF);
+    if (c == EOF) return false;
+    T flag = 1;
+    if (c == '-') { flag = -1; x = 0; } else x = c - '0';
+    while (isdigit(c = next_char())) x = (x << 3) + (x << 1) + c - '0';
+    x *= flag;
+    return true;
+}
+template <class T, class ...R>
+bool read_int(T & a, R & ...b) {
+    if (!read_int(a)) return false;
+    return read_int(b...);
+}
+bool read_str(char * s) {
+    char c;
+    while (!isalnum(c = next_char()) && c != EOF);
+    if (c == EOF) return false;
+    *s++ = c;
+    while (isalnum(c = next_char())) *s++ = c;
+    *s = 0;
+    return true;
+}
+
+} // fast_input
 
 #endif // _EXTRA_H
