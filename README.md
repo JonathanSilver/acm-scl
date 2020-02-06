@@ -67,7 +67,7 @@ Word/PDF documents containing well-organized source code and some useful theorem
     - Suffix Array & LCP Array
         - ![](http://latex.codecogs.com/gif.latex?O(n\\log^2(n))) Algorithm `construct_sa` `&` `construct_lcp`
         - ![](http://latex.codecogs.com/gif.latex?O(n\\log%20n)) Algorithm `construct_sa_lcp` `da` `&` `calc_height`
-        - ![](http://latex.codecogs.com/gif.latex?O(n)) Algorithm `create_suffix_array` `dc3` `&` `calc_height`
+        - ![](http://latex.codecogs.com/gif.latex?O(n)) Algorithm `create_suffix_array` `SA_IS::suffix_array` `dc3` `&` `calc_height`
 - Computational Geometry (2D) `code/computational_geometry.h`
     - Points `point`
     - Vectors `vec`
