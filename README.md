@@ -65,9 +65,9 @@ Word/PDF documents containing well-organized source code and some useful theorem
     - Extended KMP `ext_KMP`
     - Manacher `manacher`
     - Suffix Array & LCP Array
-        - ![](http://latex.codecogs.com/gif.latex?O(n\\log^2(n))) Algorithm `construct_sa` `&` `construct_lcp`
-        - ![](http://latex.codecogs.com/gif.latex?O(n\\log%20n)) Algorithm `construct_sa_lcp` `da` `&` `calc_height`
-        - ![](http://latex.codecogs.com/gif.latex?O(n)) Algorithm `create_suffix_array` `SA_IS::suffix_array` `dc3` `&` `calc_height`
+        - $O(n\log^2 n)$ Algorithm `construct_sa` `&` `construct_lcp`
+        - $O(n\log n)$ Algorithm `construct_sa_lcp` `da` `&` `calc_height`
+        - $O(n)$ Algorithm `create_suffix_array` `SA_IS::suffix_array` `dc3` `&` `calc_height`
 - Computational Geometry (2D) `code/computational_geometry.h`
     - Points `point`
     - Vectors `vec`
