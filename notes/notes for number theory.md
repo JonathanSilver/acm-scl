@@ -1,7 +1,6 @@
 # Notes for Number Theory
 
-*View this note with `VSCode` + `Markdown All In One` or any other ways you like.*
-
+*View this note with `VSCode` + `Markdown All in One` or any other ways you like.*
 
 ## Euclid's Algorithm
 For any nonnegative integer $a$ and any positive integer $b$,
@@ -139,7 +138,7 @@ x \equiv a_k \pmod {n_k}
 \end{matrix}
 \right.$$
 has a solution, and the solution is unique modulo $N=n_1n_2 \cdots n_k$.
-> **Solution.** The following is a general construction to find a solution to a system of congruences using CRT:
+> **Solution.** The following is a general construction to find a solution to a system of congruences using *CRT*:
 > 1. Compute $N=n_1n_2 \cdots n_k$.
 > 2. Let $y_i=\frac{N}{n_i}$, for $i=1, 2, \cdots, k$.
 > 3. Compute $z_i \equiv y_{i}^{-1} \pmod {n_i}$, for $i=1, 2, \cdots, k$, using *Euclid's extended algorithm* ($z_i$ exists since $n_1$, $n_2$, ..., $n_k$ are pairwise coprime).
@@ -164,6 +163,69 @@ x&\equiv\sum_{j=1}^{k}{a_jy_jz_j}&\pmod{n_i}\\
 
 Reference:
 - [Theorem, Solution & Proof](https://brilliant.org/wiki/chinese-remainder-theorem/)
+
+
+## Solution for Modular Linear Equation
+Given nonzero integer $a$, arbitrary integer $b$, and positive integer $n$, find the solution $x$ to the equation:
+$$ax \equiv b \pmod n$$
+> **Solution.** Construct the equivalent linear equation:
+> $$ax+ny=b$$
+> According to the *solution for linear equation*, the equation has solutions if and only if $\gcd(a, n) \mid b$.
+  
+> **Hint.** **Try not to use the multiplicative inverse.** If you use the multiplicative inverse, you are probably going to solve for $x$ in the following way:
+> $$x \equiv b \cdot a^{-1} \pmod n$$
+> **But**, $a^{-1}$ exists if and only if $\gcd(a, n)=1$, which is **NOT** equivalent to $\gcd(a, n) \mid b$.
+
+
+## Solution for Modular Linear Equations 
+Given **arbitrary** positive integers $n_1$, $n_2$, ..., $n_k$, and arbitrary integers $a_1$, $a_2$, ..., $a_k$, find the solution $x$ to the equations:
+$$\left\{\begin{matrix}
+x \equiv a_1 \pmod {n_1} \\
+x \equiv a_2 \pmod {n_2} \\
+\vdots \\
+x \equiv a_k \pmod {n_k}
+\end{matrix}\right.$$
+This is the generalized version of the problem which can be solved by *CRT*. However, we are going to use a quite different approach.
+> **Solution.** We only consider a much simpler case:
+> $$\left\{\begin{matrix}
+x \equiv a_1 \pmod {n_1} \\
+x \equiv a_2 \pmod {n_2}
+\end{matrix}\right.$$
+> Equivalently,
+> $$\begin{aligned}
+& \left\{\begin{matrix}
+x=a_1+k_1n_1 \\
+x=a_2-k_2n_2 \\
+\end{matrix}\right.\\
+\Longrightarrow & a_1+k_1n_1=a_2-k_2n_2 \\
+\Longrightarrow & k_1n_1+k_2n_2=a_2-a_1
+\end{aligned}$$
+> We can use the *solution for linear equation* directly. Let $d=\gcd(n_1, n_2)$. If $d\nmid(a_2-a_1)$, there is no solution. Otherwise, let $k=\frac{a_2-a_1}{d}$, $k_1'$ and $k_2'$ be one solution for $k_1n_1+k_2n_2=d$ solved by *Euclid's extended algorithm*. The complete solutions are given by
+> $$\left\{\begin{matrix}
+k_1=kk_1'+\frac{n_2}{d} \cdot t \\
+k_2=kk_2'-\frac{n_1}{d} \cdot t
+\end{matrix}\right.$$
+> So, we have
+> $$\left\{\begin{matrix}
+x=a_1+kk_1'n_1+\frac{n_1n_2}{d} \cdot t \\
+x=a_2-kk_2'n_2+\frac{n_1n_2}{d} \cdot t
+\end{matrix}\right.$$
+> They are actually the same, since
+> $$\begin{aligned}
+kk_1'n_1+kk_2'n_2=kd=a_2-a_1 \\
+\Longrightarrow a_1+kk_1'n_1=a_2-kk_2'n_2
+\end{aligned}$$
+> Therefore, the solution is
+> $$x=a_1+kk_1'n_1+\frac{n_1n_2}{d} \cdot t$$
+> And, we also know that the solution $x$ shows up one after another at the 'interval' of $\frac{n_1n_2}{d}$, i.e., the *least common multiple* of $n_1$ and $n_2$, which implies that the solution is unique modulo $\frac{n_1n_2}{d}$.
+> We can rewrite the solution as:
+> $$x \equiv a_1+kk_1'n_1 \pmod {\frac{n_1n_2}{d}}$$
+> This is a nice form, since both the solution and the original equations have the form:
+> $$x \equiv a \pmod n$$
+
+Now, come back to the original equations. We can repeatedly use the above **solution** for only two equations to 'merge' equations two by two to obtain the final solution.
+
+> **Hint.** You might have guessed, at the beginning, that the 'interval' of the solutions is the *least common multiple* of $n_1$, $n_2$, ..., $n_k$.
 
 
 ## Euler's Totient Function
@@ -330,8 +392,15 @@ Reference:
 $$a^p \equiv a \pmod p.$$
 If $a$ is not divisible by $p$,
 $$a^{p-1} \equiv 1 \pmod p.$$
+> **Proof.** Since $p \nmid a$ and $p$ is a prime, $\gcd(p, a)=1$. By the *Euler's theorem*, we have $a^{\varphi(p)} \equiv 1 \pmod p$. In addition, $\varphi(p)=p-1$. This completes the proof.
 
-
+> **Hint.** If $p$ is a prime, for any positive integer $a$ less than $p$, we can know the multiplicative inverse of $a$ $\pmod p$ by the *Fermat's little theorem*.
+> $$a^{-1} \equiv a^{p-2} \pmod p$$
+> This is because
+> $$\begin{aligned}
+a^{p-1} & \equiv 1 & \pmod p \\
+\Longrightarrow a \cdot a^{p-2} & \equiv 1 & \pmod p
+\end{aligned}$$
 
 
 
