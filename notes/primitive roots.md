@@ -195,6 +195,13 @@ T ext_BSGS(T a, T b, T p) {
         if (b % d) return -1;
         b /= d; p /= d; n++;
         t = t * (a / d) % p;
+        // the following line is vital!
+        // if t=b (mod p)
+        // and we need to solve
+        // t * a^x = b (mod p),
+        // then x=0 is an obvious solution.
+        // since we want the minimum x,
+        // we need to return immediately.
         if (b % p == t) return n;
     }
     T r = BSGS(a, b * inv(t, p), p);
