@@ -65,7 +65,7 @@ T inv(T t, T p) {
 }
 
 /**
- * Chinese remainder theorem(CRT)
+ * Chinese remainder theorem (CRT)
  * Solves the equations:
  *    x = a1 (mod m1)
  *    x = a2 (mod m2)
@@ -298,17 +298,12 @@ T BSGS(T a, T b, T p) {
  */
 template <typename T>
 T ext_BSGS(T a, T b, T p) {
-    // NOTE: Without the following for-loop,
-    //       you will get WRONG ANSWER!
-    for (T i = 0, x = 1 % p, y = b % p; i < 50; i++, x = x * a % p)
-        if (x == y) return i;
-    if (gcd(a, p) == 1) return BSGS(a, b, p);
     T n = 0, t = 1, d;
     while ((d = gcd(a, p)) != 1) {
         if (b % d) return -1;
         b /= d; p /= d; n++;
-        // NOTE: The following line DOES NOT make sense!
         t = t * (a / d) % p;
+        if (b % p == t) return n;
     }
     T r = BSGS(a, b * inv(t, p), p);
     return r == -1 ? -1 : r + n;
