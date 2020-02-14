@@ -231,6 +231,76 @@ The running time of the above code is $O(\log^2p+\sqrt{p})$, assuming that $p$ h
 > $$ab\bmod\frac{p}{d_1d_2}=\left(a\bmod\frac{p}{d_1}\right)b\bmod\frac{p}{d_1d_2}$$
 > This explains why the above code is indeed correct.
 
+## $n$-th Power Residue
+Given positive integer $n$, arbitrary integer $a$, and a prime $p$, find all the integer solutions $x$, $0\le x<p$, such that
+$$x^n\equiv a\pmod p$$
+
+> **Hint.** If $\gcd(a,p)=1$ and such $x$ exists, then $a$ has $n$-th power residue $\pmod p$.
+
+If $a\bmod p=0$, then obviously, $x=0$ is the only solution.
+
+> **Hint.** If you have doubts about why $x=0$ is the only solution for $x^n\equiv 0\pmod p$. You can read this **hint**. Equivalently, we want to find such $x$ that $p\mid x^n$. Since $p$ is a prime, $x^n$ can never be a multiple of $p$ except when $p\mid x$. But, we requires that $0\le x<p$, which implies that $x=0$ is the only solution.
+
+Otherwise, since $p$ is a prime, the *primitive root* $\pmod p$ must exist. Let $g$ be the *primitive root* $\pmod p$, $g^y\equiv x\pmod p$ and $g^m\equiv a\pmod p$, where integers $y$ and $m$ satisfy $0\le y,m<p$. Then,
+$$x^n\equiv\left(g^y\right)^n\equiv g^{yn}\equiv g^m\equiv a\pmod p$$
+By the *Euler's theorem*, we have
+$$yn\equiv m\pmod{p-1}$$
+We can use *BSGS* to find $m$, and then use *Euclid's extended algorithm* to find $y$. The solution is $x\equiv g^y\pmod p$. To be specific, after we find $m$, we are going to solve
+$$yn+q(p-1)=m$$
+If $\gcd(n,p-1)\mid m$, then the solutions are
+$$y=ky'+\frac{p-1}{d}\cdot t$$
+where $d=\gcd(n,p-1)$, $k=\frac{m}{d}$, $y'$ is one solution to $yn+q(p-1)=d$ obtained by *Euclid's extended algorithm* and $0\le t<d$. We enumerate $t$ in $[0,d)$ so that one complete *period* is covered, i.e., the difference between the maximum and minimum $y$ is $p-1$.
+
+Below is the C++ implementation of the above procedure.
+
+```C++
+/**
+ * find all the x (0<=x<p) such that
+ * x^n=a (mod p)
+ * where n>=0 and p is a prime.
+ */
+template <typename T>
+vector<T> nth_root(T n, T a, T p) {
+    vector<T> r;
+    if (n == 0) { // x^0=a (mod p)
+        // remind that 0^0 is undefined!
+        // x^0=1, for any x>0
+        if (1 % p == a % p) {
+            for (int i = 1; i < p; i++)
+                r.push_back(i);
+        } else return r;
+    }
+    if (a % p == 0) { // x^n=0 (mod p)
+        r.push_back(0); // the only solution is 0
+        return r;
+    }
+    // we requires that p is a prime
+    // p must have a primitive root g
+    T g = primitive_root(p);
+    // since a!=0 (mod p),
+    // there must exist m
+    // such that g^m=a (mod p)
+    T m = BSGS(g, a, p);
+    // solve for y such that yn=m (mod p-1)
+    T A = n, B = p - 1, C = m, x, y;
+    T d = ext_gcd(A, B, x, y);
+    if (C % d) return r; // there is no solution
+    x = x * (C / d) % B; // the first solution for y
+    T delta = B / d; // the 'interval'
+    // we enumerate t in [0, d)
+    for (T i = 0; i < d; i++) {
+        x = ((x + delta) % B + B) % B;
+        r.push_back(mod_pow(g, x, p));
+    }
+    // we sort and erase duplicated elements
+    sort(r.begin(), r.end());
+    r.erase(unique(r.begin(), r.end()), r.end());
+    return r;
+}
+```
+
+If we ignore that $n$ can be zero and ask for only one possible solution $x$, then the running time is $O(\sqrt{p}+g\log^2p)$, which is the same as that of the algorithm used to find the *primitive root* $\pmod p$. However, if we include the parts where we have previously ignored, the running time becomes $O(p+g\log^2p)$, which is almost no better than brute force, the running time of which is $O(p\log n)$.
+
 
 
 
@@ -242,3 +312,5 @@ The running time of the above code is $O(\log^2p+\sqrt{p})$, assuming that $p$ h
 - [An algorithm to find *primitive roots*](https://cp-algorithms.com/algebra/primitive-root.html)
 - [Discrete logarithm](http://mathworld.wolfram.com/DiscreteLogarithm.html)
 - [Baby-Step Giant-Step](http://blog.miskcoo.com/2015/05/discrete-logarithm-problem)
+- [$n$-th Power Residue](https://www.geneseo.edu/~towsleyg/MATH%20319%20Exploratory%20Assignment%20on%20nth%20Power%20Residues.htm)
+- [An algorithm to find the solutions to $x^n\equiv a\pmod p$](https://blog.csdn.net/dreamzuora/article/details/52744666)
