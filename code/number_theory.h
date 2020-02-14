@@ -371,10 +371,10 @@ template <typename T>
 vector<T> nth_root(T n, T a, T p) {
     vector<T> r;
     if (n == 0) {
-        if (a % p == 1) {
+        if (a % p == 1)
             for (T i = 1; i < p; i++)
                 r.push_back(i);
-        } else return r;
+        return r;
     }
     if (a % p == 0) {
         r.push_back(0);

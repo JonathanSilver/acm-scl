@@ -278,11 +278,11 @@ vector<T> nth_root(T n, T a, T p) {
     vector<T> r;
     if (n == 0) { // x^0=a (mod p)
         // remind that 0^0 is undefined!
-        // x^0=1, for any x>0
-        if (a % p == 1) {
+        // x^0=1 (mod p), for any x>0
+        if (a % p == 1) // 1=1 (mod p)
             for (T i = 1; i < p; i++)
                 r.push_back(i);
-        } else return r;
+        return r;
     }
     if (a % p == 0) { // x^n=0 (mod p)
         r.push_back(0); // the only solution is 0
