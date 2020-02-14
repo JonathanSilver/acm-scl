@@ -245,11 +245,25 @@ Otherwise, since $p$ is a prime, the *primitive root* $\pmod p$ must exist. Let 
 $$x^n\equiv\left(g^y\right)^n\equiv g^{yn}\equiv g^m\equiv a\pmod p$$
 By the *Euler's theorem*, we have
 $$yn\equiv m\pmod{p-1}$$
-We can use *BSGS* to find $m$, and then use *Euclid's extended algorithm* to find $y$. The solution is $x\equiv g^y\pmod p$. To be specific, after we find $m$, we are going to solve
+We can use *BSGS* to find $m$, and then use *Euclid's extended algorithm* to find $y$. The solution is $x\equiv g^y\pmod p$.
+
+> **Hint.** If $a\bmod p\ne 0$ and $0\le m<p-1$, then $g^m\equiv a\pmod p$ has exactly one solution for $m$. This is because $g^m\bmod p$ can generate every element in $\mathbb{Z}_p^*=\left\{1,2,\cdots,p-1\right\}$ when $0\le m<p-1$, which implies a one-to-one relation between $m$ and $a\bmod p$.
+
+To be specific, after we find $m$, we are going to solve
 $$yn+q(p-1)=m$$
 If $\gcd(n,p-1)\mid m$, then the solutions are
 $$y=ky'+\frac{p-1}{d}\cdot t$$
 where $d=\gcd(n,p-1)$, $k=\frac{m}{d}$, $y'$ is one solution to $yn+q(p-1)=d$ obtained by *Euclid's extended algorithm* and $0\le t<d$. We enumerate $t$ in $[0,d)$ so that one complete *period* is covered, i.e., the difference between the maximum and minimum $y$ is $p-1$.
+
+Otherwise, there is no solution.
+
+> **Hint.** We know that prime $p$ has $\varphi(p-1)$ *primitive roots* $\pmod p$, all of which are in the form $g^d\bmod p$, where $d$ satisfies $\gcd(d, p-1)=1$. If you find that $\gcd(n,p-1)\nmid m$ for one $g$, you can be sure that there is no solution. This is because for any other *primitive roots* $g^d\bmod p$, $\gcd(d, p-1)=1$, we still have
+> $$x^n\equiv\left(\left(g^d\right)^y\right)^n\equiv g^{dyn}\equiv g^{dm}\equiv\left(g^d\right)^m\equiv a\pmod p$$
+> Or,
+> $$dyn\equiv dm\pmod{p-1}$$
+> Since $\gcd(d,p-1)=1$, $d$ has multiplicative inverse $\pmod{p-1}$. Then
+> $$yn\equiv m\pmod{p-1}$$
+> This implies that we are going to solve the same equation for any $g$. So, we can conclude that there is no solution if you find $\gcd(n,p-1)\nmid m$, for any $g$.
 
 Below is the C++ implementation of the above procedure.
 
@@ -257,7 +271,7 @@ Below is the C++ implementation of the above procedure.
 /**
  * find all the x (0<=x<p) such that
  * x^n=a (mod p)
- * where n>=0 and p is a prime.
+ * where n, a>=0 and p is a prime.
  */
 template <typename T>
 vector<T> nth_root(T n, T a, T p) {
@@ -265,8 +279,8 @@ vector<T> nth_root(T n, T a, T p) {
     if (n == 0) { // x^0=a (mod p)
         // remind that 0^0 is undefined!
         // x^0=1, for any x>0
-        if (1 % p == a % p) {
-            for (int i = 1; i < p; i++)
+        if (a % p == 1) {
+            for (T i = 1; i < p; i++)
                 r.push_back(i);
         } else return r;
     }
@@ -278,7 +292,7 @@ vector<T> nth_root(T n, T a, T p) {
     // p must have a primitive root g
     T g = primitive_root(p);
     // since a!=0 (mod p),
-    // there must exist m
+    // there exists exactly one solution for m
     // such that g^m=a (mod p)
     T m = BSGS(g, a, p);
     // solve for y such that yn=m (mod p-1)

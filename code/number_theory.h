@@ -364,19 +364,24 @@ T primitive_root(T p) {
 /**
  * Finds all the x (0 <= x < p) such that
  * x ^ n = a (mod p)
- * where p is a prime.
+ * where n, a >= 0 and p is a prime.
  * Complexity: O(p^0.5)
  */
 template <typename T>
 vector<T> nth_root(T n, T a, T p) {
     vector<T> r;
-    if (!a) {
+    if (n == 0) {
+        if (a % p == 1) {
+            for (T i = 1; i < p; i++)
+                r.push_back(i);
+        } else return r;
+    }
+    if (a % p == 0) {
         r.push_back(0);
         return r;
     }
     T g = primitive_root(p);
     T m = BSGS(g, a, p);
-    if (m == -1) return r;
     T A = n, B = p - 1, C = m, x, y;
     T d = ext_gcd(A, B, x, y);
     if (C % d) return r;
