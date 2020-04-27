@@ -21,10 +21,10 @@ Some notes can be found in `notes`. They are `Markdown` files with `LaTeX` formu
 - There are few comments in the code. It would be appreciated if you add any! ^_^
 
 ## Table of Contents
-- Data Structures `code/`
+- Data Structures [`code/`](/code)
     - Hash Table [`hash_table.h`](/code/hash_table.h)
-        - Basic Hash Table `dictionary`
-        - Skip List `skip_list`
+        - Basic Hash Table [`dictionary`](/code/hash_table.h)
+        - Skip List [`skip_list`](/code/hash_table.h)
     - Binary Search Tree (BST)
         - Basic BST `search_tree.h:search_tree`
         - AVL `search_tree.h:avl_tree` `tree.h:avl_tree`
