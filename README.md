@@ -22,7 +22,7 @@ Some notes can be found in `notes`. They are `Markdown` files with `LaTeX` formu
 
 ## Table of Contents
 - Data Structures `code/`
-    - Hash Table `hash_table.h`
+    - Hash Table [`hash_table.h`](/code/hash_table.h)
         - Basic Hash Table `dictionary`
         - Skip List `skip_list`
     - Binary Search Tree (BST)
