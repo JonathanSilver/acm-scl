@@ -12,32 +12,6 @@
 
 using namespace std;
 
-template <class T>
-int search_lower(vector<T> & v, T x) {
-    int l = 0, r = v.size() - 1;
-    while (l <= r) {
-        int mid = (l + r) >> 1;
-        if (v[mid] < x)
-            l = mid + 1;
-        else
-            r = mid - 1;
-    }
-    return l;
-}
-
-template <class T>
-int search_upper(vector<T> & v, T x) {
-    int l = 0, r = v.size() - 1;
-    while (l <= r) {
-        int mid = (l + r) >> 1;
-        if (x < v[mid])
-            r = mid - 1;
-        else
-            l = mid + 1;
-    }
-    return r;
-}
-
 vector<int> compute_fail_function(const string & pattern) {
     vector<int> fail(pattern.size());
     fail[0] = 0;
