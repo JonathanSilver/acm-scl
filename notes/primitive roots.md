@@ -78,7 +78,7 @@ How do we know whether *primitive roots* exist or not?
 Given positive integer $n$, we try to find one *primitive root* $\pmod n$.
 
 > **Observation.** By **definition 2**, $a$ is a *primitive root* $\pmod n$ if the smallest positive integer $x$ such that $a^x\equiv 1\pmod n$ is $\varphi(n)$. If $a$ is a *primitive root* $\pmod n$, then there should not exist a proper divisor $d$ of $\varphi(n)$, $1\le d<\varphi(n)$ and $d\mid\varphi(n)$, such that $a^d\equiv 1\pmod n$, by **lemma 1**.
->> **Hint.** **Lemma 1** tells us that all the *orders* $\pmod n$ divides $\varphi(n)$, so we don't need to check integers which cannot divide $\varphi(n)$.
+>> **Hint.** **Lemma 1** tells us that all the *orders* $\pmod n$ divide $\varphi(n)$, so we don't need to check integers which cannot divide $\varphi(n)$.
 
 Checking all the divisors is also time consuming. In fact, we can even do it faster.
 
