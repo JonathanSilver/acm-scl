@@ -174,8 +174,8 @@ int rev(int idx, int n) {
  * Complexity: O(n lg n)
  *
  * Polynomial: A(x) = Sum(a[i] x^i, i = 0 .. n - 1)
- * y = (y[0], y[1], y[n - 1]), where y[k] = A(x[k])
- * a = (a[0], a[1], a[n - 1])
+ * y = (y[0], y[1], ..., y[n - 1]), where y[k] = A(x[k])
+ * a = (a[0], a[1], ..., a[n - 1])
  * y = DFT(a)  (DFT - Discrete Fourier Transform)
  *
  * Convolution Theorem:
@@ -192,15 +192,12 @@ vector<complex<double> > FFT(const vector<complex<double> > & a, int op) {
     vector<complex<double> > v(n);
     for (int i = 0; i < n; i++)
         v[rev(i, n)] = a[i];
-    for (int s = 1; (1 << s) <= n; s++)
-    {
+    for (int s = 1; (1 << s) <= n; s++) {
         int m = (1 << s);
         complex<double> wm = complex<double>(cos(op * 2 * acos(-1) / m), sin(op * 2 * acos(-1) / m));
-        for (int k = 0; k < n; k += m)
-        {
+        for (int k = 0; k < n; k += m) {
             complex<double> w = complex<double>(1, 0);
-            for (int j = 0; j < (m >> 1); j++)
-            {
+            for (int j = 0; j < (m >> 1); j++) {
                 complex<double> t = w * v[k + j + (m >> 1)];
                 complex<double> u = v[k + j];
                 v[k + j] = u + t;
