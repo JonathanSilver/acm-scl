@@ -60,8 +60,19 @@ class FastInput {
      */
     public Integer nextInt() {
         try {
-//            return Integer.valueOf(Objects.requireNonNull(next()));
             return Integer.valueOf(next());
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    /**
+     * next long
+     * @return null if EOF or next long
+     */
+    public Long nextLong() {
+        try {
+            return Long.valueOf(next());
         } catch (Exception e) {
             return null;
         }
@@ -147,6 +158,25 @@ public class Main {
             else l = mid + 1;
         }
         return l;
+    }
+
+    /** finds the Greatest Common Divisor (GCD) of a and b.
+     *  a and b should be greater than 0. */
+    public static long gcd(long a, long b) {
+        return b == 0 ? a : gcd(b, a % b);
+    }
+
+    /** calculates a ^ n % p in O(log(n)).
+     *  n should be non-negative. */
+    public static long qpow(long a, long n, long p) {
+        long r = 1;
+        a %= p;
+        while (n > 0) {
+            if ((n & 1) != 0) r = r * a % p;
+            a = a * a % p;
+            n >>= 1;
+        }
+        return r;
     }
 
     static FastInput in = new FastInput();
