@@ -2,6 +2,7 @@
 #define _GRAPH_H
 
 #include <cstring>
+#include <cmath>
 #include <queue>
 #include <vector>
 #include <map>
@@ -398,38 +399,39 @@ int isap(int s, int t)
     return max_flow;
 }
 
+vector<int> adj[N];
 int match[N];
 
 /**
  * The Hungarian method
  * A combinatorial optimization algorithm that solves
  * the assignment problem in polynomial time.
- * Complexity: O(n^3)
+ * Complexity: O(VE)
  */
-bool hungary_find(int x, int n2)
+bool hungary_find(int u)
 {
-    for (int i = 0; i < n2; i++)
+    for (auto v : adj[u])
     {
-        if (edges[x][i] && !visited[i])
+        if (!visited[v])
         {
-            visited[i] = true;
-            if (match[i] == -1 || hungary_find(match[i], n2))
+            visited[v] = true;
+            if (match[v] == -1 || hungary_find(match[v]))
             {
-                match[i] = x;
+                match[v] = u;
                 return true;
             }
         }
     }
     return false;
 }
-int hungary(int n1, int n2)
+int hungary(int n)
 {
     memset(match, -1, sizeof(match));
     int r = 0;
-    for (int i = 0; i < n1; i++)
+    for (int i = 0; i < n; i++)
     {
         memset(visited, 0, sizeof(visited));
-        if (hungary_find(i, n2))
+        if (hungary_find(i))
             r++;
     }
     return r;
@@ -453,7 +455,6 @@ bool in_stack[N];
 int dfn[N], low[N];
 int component_number = 0, idx = 0;
 int component_idx[N];
-vector<int> adj[N];
 vector<int> component[N];
 
 /**
