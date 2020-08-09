@@ -179,6 +179,19 @@ public class Main {
         return r;
     }
 
+    /** returns the first element of an ORDERED set (e.g. TreeSet),
+     *  or null if the given set is an empty set. */
+    public static <T> T first(Set<T> set) {
+        for (var x : set) return x;
+        return null;
+    }
+
+    /** returns the first element of an ORDERED map (e.g. TreeMap),
+     *  or null if the given map is an empty map. */
+    public static <K, V> Map.Entry<K, V> first(Map<K, V> map) {
+        return first(map.entrySet());
+    }
+
     static FastInput in = new FastInput();
     static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
 
