@@ -87,31 +87,34 @@ class FastInput {
  * (since Pair implements Comparable).
  * Note: hashCode() can be implemented using better hash functions.
  */
-class Pair implements Comparable<Pair> {
+class Pair<T1 extends Comparable<T1>, T2 extends Comparable<T2>>
+        implements Comparable<Pair<T1, T2>> {
 
-    int x;
-    int y;
+    T1 x;
+    T2 y;
 
-    Pair(int x, int y) {
+    Pair(T1 x, T2 y) {
         this.x = x;
         this.y = y;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Pair)
-            return x == ((Pair) obj).x && y == ((Pair) obj).y;
-        return super.equals(obj);
+        if (obj instanceof Pair<?, ?>)
+            return x.equals(((Pair<?, ?>)obj).x) && y.equals(((Pair<?, ?>)obj).y);
+        else return super.equals(obj);
     }
 
     @Override
-    public int compareTo(Pair o) {
-        return x == o.x ? y - o.y : x - o.x;
+    public int compareTo(Pair<T1, T2> o) {
+        int r = x.compareTo(o.x);
+        if (r == 0) return y.compareTo(o.y);
+        else return r;
     }
 
     @Override
     public int hashCode() {
-        return x << 16 | (y & ((1 << 16) - 1));
+        return (x.hashCode() << 16) | (y.hashCode() & ((1 << 16) - 1));
     }
 
     @Override
@@ -129,8 +132,20 @@ public class Main {
         nums[j] = temp;
     }
 
+    public static <T> void swap(List<T> nums, int i, int j) {
+        T temp = nums.get(i);
+        nums.set(i, nums.get(j));
+        nums.set(j, temp);
+    }
+
     /** reverses nums[l, r), r is excluded. */
     public static void reverse(int[] nums, int l, int r) {
+        int len = r - l;
+        for (int i = l; i < l + len / 2; i++)
+            swap(nums, i, r - i + l - 1);
+    }
+
+    public static <T> void reverse(List<T> nums, int l, int r) {
         int len = r - l;
         for (int i = l; i < l + len / 2; i++)
             swap(nums, i, r - i + l - 1);
@@ -148,6 +163,15 @@ public class Main {
         return l;
     }
 
+    public static <T extends Comparable<T>> int lower(List<T> nums, T x, int l, int r) {
+        while (l < r) {
+            int mid = (l + r) / 2;
+            if (nums.get(mid).compareTo(x) >= 0) r = mid;
+            else l = mid + 1;
+        }
+        return l;
+    }
+
     /** finds the upper bound for x in nums[l..r),
      *  i.e., finds the smallest i (l <= i < r) such that nums[i] > x.
      *  if there is no such i, then r is returned. */
@@ -155,6 +179,15 @@ public class Main {
         while (l < r) {
             int mid = (l + r) / 2;
             if (nums[mid] > x) r = mid;
+            else l = mid + 1;
+        }
+        return l;
+    }
+
+    public static <T extends Comparable<T>> int upper(List<T> nums, T x, int l, int r) {
+        while (l < r) {
+            int mid = (l + r) / 2;
+            if (nums.get(mid).compareTo(x) > 0) r = mid;
             else l = mid + 1;
         }
         return l;
@@ -190,6 +223,19 @@ public class Main {
      *  or null if the given map is an empty map. */
     public static <K, V> Map.Entry<K, V> first(Map<K, V> map) {
         return first(map.entrySet());
+    }
+
+    /** sorts the list in ascending order,
+     *  and returns a new list with equal elements removed.
+     *  usage: list = sortUnique(list); */
+    public static <T extends Comparable<T>> List<T> sortUnique(List<T> list) {
+        list.sort(T::compareTo);
+        List<T> res = new ArrayList<>();
+        for (var x : list) {
+            if (res.size() == 0 || !res.get(res.size() - 1).equals(x))
+                res.add(x);
+        }
+        return res;
     }
 
     static FastInput in = new FastInput();
