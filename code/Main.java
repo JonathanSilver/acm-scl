@@ -226,16 +226,20 @@ public class Main {
     }
 
     /** sorts the list in ascending order,
-     *  and returns a new list with equal elements removed.
-     *  usage: list = sortUnique(list); */
-    public static <T extends Comparable<T>> List<T> sortUnique(List<T> list) {
+     *  and rearranges the list with equal elements removed.
+     *  the operation is done in place.
+     *  returns the length of the list.
+     *  (there might be extra elements at the end of the list,
+     *   so the returned new length should be used instead of list.size()) */
+    public static <T extends Comparable<T>> int sortUnique(List<T> list) {
         list.sort(T::compareTo);
-        List<T> res = new ArrayList<>();
-        for (var x : list) {
-            if (res.size() == 0 || !res.get(res.size() - 1).equals(x))
-                res.add(x);
+        int i = 0, j = 1;
+        while (j < list.size()) {
+            if (!list.get(i).equals(list.get(j)))
+                swap(list, ++i, j);
+            j++;
         }
-        return res;
+        return ++i;
     }
 
     static FastInput in = new FastInput();
