@@ -242,6 +242,35 @@ public class Main {
         return ++i;
     }
 
+    /** gets the next permutation of nums.
+     *  the operation is done in place.
+     *  the ascending order is considered the first permutation,
+     *  and the descending order is considered the last.
+     *  the next permutation of the last permutation is the first permutation.
+     *  returns false if nums is already the last permutation, otherwise true.
+     *  
+     *  common usage:
+     *  
+     *  do {
+     *      // do something with nums...
+     *  } while (nextPermutation(nums)); */
+    public static boolean nextPermutation(int[] nums) {
+        for (int i = nums.length - 1; i > 0; i--) {
+            if (nums[i] > nums[i - 1]) {
+                for (int j = nums.length - 1; j >= i; j--) {
+                    if (nums[j] > nums[i - 1]) {
+                        swap(nums, j, i - 1);
+                        break;
+                    }
+                }
+                reverse(nums, i, nums.length);
+                return true;
+            }
+        }
+        reverse(nums, 0, nums.length);
+        return false;
+    }
+
     static FastInput in = new FastInput();
     static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
 
