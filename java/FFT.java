@@ -1,3 +1,9 @@
+/**
+ * represents a Complex number:
+ * real + imag j, where j ^ 2 = 1.
+ * This is used primarily in FFT,
+ * which is why only necessary methods are implemented.
+ */
 class Complex {
 
     double real;
@@ -37,6 +43,7 @@ class Complex {
 
 public class FFT {
 
+    /** helper methods for reversing all the bits in idx. */
     private static int revBit(int idx, int n) {
         int r = 0;
         for (int i = 0; (1 << i) < n; i++) {
@@ -46,6 +53,11 @@ public class FFT {
         return r;
     }
 
+    /**
+     * performs the Fast Fourier Transform (FFT).
+     * @param a an array with length of a power of 2.
+     * @param op 1 or -1, meaning the transform or the inverse.
+     */
     public static void fft(Complex[] a, int op) {
         for (int i = 0; i < a.length; i++) {
             if (i < revBit(i, a.length))

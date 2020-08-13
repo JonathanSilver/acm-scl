@@ -1,7 +1,7 @@
 import java.util.*;
 
 /**
- * Stores a pair of ints.
+ * Stores a pair of values.
  * Pair can be used as keys in HashMaps
  * (which is because hashCode() and equals() are implemented)
  * or entries in PriorityQueues
