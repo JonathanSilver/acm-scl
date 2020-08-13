@@ -1,6 +1,6 @@
 /**
  * represents a Complex number:
- * real + imag j, where j ^ 2 = 1.
+ * real + imag j, where j ^ 2 = -1.
  * This is used primarily in FFT,
  * which is why only necessary methods are implemented.
  */
