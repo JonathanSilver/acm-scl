@@ -6,9 +6,9 @@ Many commonly seen/used algorithms and data structures in competitive programmin
 
 A tool used to compare the output files has also been implemented, the source code of which can be found in [`_cmp`](/_cmp).
 
-Word/PDF documents containing well-organized source code and some useful theorems and formulas can be found in [`_SCL`](/_SCL). Most of the theorems and formulas are from *Wikipedia* and *Concrete Mathematics*.
-
 Some notes can be found in [`notes`](/notes). They are `Markdown` files with `LaTeX` formulas. I use `VSCode` + `Markdown All in One` + `Markdown Preview Enhanced` to read and edit these notes.
+
+Java Templates are available in [`java`](/java).
 
 ### Notes:
 - My C++ compiler is [MinGW-W64](https://sourceforge.net/projects/mingw-w64/) 8.1.0. Compile the code with `c++0y` (a.k.a. C++ 14) compiling option.
