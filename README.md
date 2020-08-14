@@ -2,13 +2,11 @@
 
 *This is the Standard Code Library (SCL) for Competitive Programming.*
 
-Many commonly seen/used algorithms and data structures in competitive programming have been implemented. You can find the implementations in [`code`](/code).
+Many commonly seen/used algorithms and data structures in competitive programming have been implemented. You can find the C++ implementations in [`code`](/code), and the Java templates in [`java`](/java).
 
 A tool used to compare the output files has also been implemented, the source code of which can be found in [`_cmp`](/_cmp).
 
 Some notes can be found in [`notes`](/notes). They are `Markdown` files with `LaTeX` formulas. I use `VSCode` + `Markdown All in One` + `Markdown Preview Enhanced` to read and edit these notes.
-
-Java Templates are available in [`java`](/java).
 
 ### Notes:
 - My C++ compiler is [MinGW-W64](https://sourceforge.net/projects/mingw-w64/) 8.1.0. Compile the code with `c++0y` (a.k.a. C++ 14) compiling option.
