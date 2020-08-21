@@ -89,6 +89,12 @@ public class Main {
 //    static final int M = 998244353;
     static final int N = 100005;
 
+    // public final int[] dx = {-1, -1, -1, 0, 0, 1, 1, 1};
+    // public final int[] dy = {-1, 0, 1, -1, 1, -1, 0, 1};
+
+    public final int[] dx = {0, 0, -1, 1};
+    public final int[] dy = {-1, 1, 0, 0};
+
     public static void main(String[] args) {
         // NOTE: DEFAULT JAVA STACK SIZE IS UNCERTAIN.
         //       in my computer, max depth for long (int) is 10000 (the same as C++).
