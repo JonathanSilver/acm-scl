@@ -49,11 +49,11 @@ Now, I believe you have known what makes this representation better. If $\{(x_0,
 
 Here comes the final problem. How do we quickly convert *coefficient representation* to *point-value representation* and vice versa?
 
-We introduce the *complex $n$th unity*, which is a complex number $\omega_n^k$ such that
+We introduce the *complex $n$-th root of unity*, which is a complex number $\omega_n^k$ such that
 
 $$\left(\omega_n^k\right)^n=1$$
 
-There are exactly $n$ complex $n$th roots of unity
+There are exactly $n$ complex $n$-th roots of unity
 
 $$\omega_n^k=e^{2k\pi i/n}$$
 
@@ -79,8 +79,8 @@ In order to quickly calculate all the $y_k$. We are going to apply the divide an
 
 Let
 
-$$A^{[0]}=a_0+a_2x+a_4x^2+\cdots+a_{n-2}x^{n/2-1}$$
-$$A^{[1]}=a_1+a_3x+a_5x^2+\cdots+a_{n-1}x^{n/2-1}$$
+$$A^{[0]}(x)=a_0+a_2x+a_4x^2+\cdots+a_{n-2}x^{n/2-1}$$
+$$A^{[1]}(x)=a_1+a_3x+a_5x^2+\cdots+a_{n-1}x^{n/2-1}$$
 
 > **Hint.** $A^{[0]}$ contains all the even-indexed coefficients of $A$ (the binary representation of the index ends in $0$) and $A^{[1]}$ contains all the odd-indexed coefficients (the binary representation of the index ends in $1$).
 
